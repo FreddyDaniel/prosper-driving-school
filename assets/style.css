@@ -104,9 +104,9 @@ section.dark .steps li{background:rgba(255,255,255,.05);border-color:rgba(255,25
 .js .rv.in{opacity:1;transform:none}
 .split .ln{display:block;overflow:hidden;padding-bottom:.1em;margin-bottom:-.1em}
 .js .split{opacity:1;transform:none}.split .ln>span{display:block;transform:translateY(110%);transition:transform 1.1s cubic-bezier(.2,.8,.2,1)}.split.in .ln>span{transform:none}
-.js .card.rv{opacity:1;transform:none;clip-path:inset(0 0 100% 0 round 22px);transition:clip-path 1.1s cubic-bezier(.7,0,.2,1),transform .45s,box-shadow .45s,border-color .45s}
-.js .card.rv.in{clip-path:inset(-40px round 22px)}
-.js .card.rv>*{opacity:0;transform:translateY(16px);transition:opacity .8s .35s,transform .8s .35s}.js .card.rv.in>*{opacity:1;transform:none}
+.js .card.rv{opacity:0;transform:translate3d(0,36px,0);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .45s,border-color .45s}
+.js .card.rv.in{opacity:1;transform:none}.js .card.rv.done{transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .45s}
+
 @view-transition{navigation:auto}
 ::view-transition-old(root){animation:.45s cubic-bezier(.7,0,.3,1) both vtOut}::view-transition-new(root){animation:.7s cubic-bezier(.7,0,.3,1) both vtIn}
 @keyframes vtOut{to{opacity:0;transform:translateY(-30px) scale(.98)}}@keyframes vtIn{from{clip-path:inset(100% 0 0 0)}to{clip-path:inset(0)}}
@@ -164,7 +164,6 @@ section.dark .steps li{background:rgba(255,255,255,.05);border-color:rgba(255,25
 .card .ph{display:block;margin:-28px -28px 6px;aspect-ratio:16/10;overflow:hidden;border-radius:var(--r) var(--r) 0 0;background:#DCE4EE}
 .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
 a.card:hover .ph img{transform:scale(1.06)}
-.js .card.rv>.ph{transform:none;opacity:1}
 /* town cards: typographic */
 .card.town{padding:26px 26px 22px;gap:10px}.card.town .tn{font:700 .72rem var(--h);letter-spacing:.16em;text-transform:uppercase;color:var(--bl)}
 .card.town h3{font-size:clamp(1.3rem,2vw,1.6rem);letter-spacing:-.03em}
@@ -178,3 +177,8 @@ a.card:hover .ph img{transform:scale(1.06)}
 .pkg .tag{background:none;padding:0;border-radius:0;color:var(--bl);letter-spacing:.16em;font-size:.7rem}
 .pkg .price{margin-top:auto;padding-top:8px;font-size:1rem;color:var(--mut);font-weight:700}.pkg .card>.btn{align-self:flex-start}
 .pkg .card.feat{border:1.5px solid var(--bl);box-shadow:0 2px 4px rgba(16,32,64,.05),0 30px 60px -24px rgba(10,91,196,.35)}
+
+/* smooth scroll (Lenis) */
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}.lenis.lenis-stopped{overflow:hidden}
+[id]{scroll-margin-top:104px}
+.hero-bg,.photo img,.card .ph img{backface-visibility:hidden}

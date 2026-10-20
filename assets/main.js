@@ -10,10 +10,11 @@ if(!R&&!sessionStorage.pds&&!/[?&]noload/.test(location.search)){sessionStorage.
 const h=D.querySelector('.hdr'),t=D.querySelector('.menu-t');let lenis=null;
 const sc=()=>h.classList.toggle('scrolled',scrollY>20);sc();addEventListener('scroll',sc,{passive:true});
 t&&t.addEventListener('click',()=>{const o=h.classList.toggle('open');t.setAttribute('aria-expanded',o);D.body.style.overflow=o?'hidden':'';lenis&&(o?lenis.stop():lenis.start())});
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.matches('.cards,.pkg')&&e.target.querySelectorAll('.card.rv').forEach((c,i)=>{c.style.transitionDelay=i*70+'ms';c.classList.add('in')});io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -30px'});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.matches('.cards,.pkg')&&e.target.querySelectorAll('.card.rv').forEach((c,i)=>{c.style.transitionDelay=Math.min(i,8)*70+'ms';c.classList.add('in');setTimeout(()=>{c.style.transitionDelay='';c.classList.add('done')},900+Math.min(i,8)*70)});io.unobserve(e.target)}}),{threshold:.08,rootMargin:'0px 0px -30px'});
 const els=D.querySelectorAll('.rv');els.forEach(el=>{if(!el.classList.contains('split')&&!el.matches('.card'))el.style.transitionDelay=(el.dataset.d||0)+'ms'});
 const obs=()=>{els.forEach(el=>el.matches('.card')||io.observe(el));D.querySelectorAll('.cards,.pkg').forEach(el=>io.observe(el))};delayed?(start=obs):obs();
-if(!R&&FINE&&window.Lenis){lenis=new Lenis({lerp:.1,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0)}
+if(!R&&FINE&&window.Lenis){lenis=new Lenis({lerp:.11,smoothWheel:true,wheelMultiplier:1});(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0)}
+D.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(!a||a.getAttribute('href')==='#')return;const el=D.getElementById(decodeURIComponent(a.hash.slice(1)));if(!el)return;e.preventDefault();lenis?lenis.scrollTo(el,{offset:-104}):el.scrollIntoView({behavior:R?'auto':'smooth'});history.replaceState(null,'',a.hash);if(a.classList.contains('skip')){el.setAttribute('tabindex','-1');el.focus({preventScroll:true})}});
 const hv=D.querySelector('.hv');
 if(hv){if(R||navigator.connection&&navigator.connection.saveData){hv.removeAttribute('autoplay');hv.pause()}else{new IntersectionObserver(([e])=>{e.isIntersecting?hv.play().catch(()=>{}):hv.pause()}).observe(hv)}}
 const px=[...D.querySelectorAll('.hero-bg')];
