@@ -14,8 +14,10 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 const els=D.querySelectorAll('.rv');els.forEach(el=>{if(!el.classList.contains('split')&&!el.matches('.card'))el.style.transitionDelay=(el.dataset.d||0)+'ms'});
 const obs=()=>{els.forEach(el=>el.matches('.card')||io.observe(el));D.querySelectorAll('.cards,.pkg').forEach(el=>io.observe(el))};delayed?(start=obs):obs();
 if(!R&&FINE&&window.Lenis){lenis=new Lenis({lerp:.1,smoothWheel:true});(function raf(t){lenis.raf(t);requestAnimationFrame(raf)})(0)}
-const px=[...D.querySelectorAll('.scene')];
-if(!R&&FINE&&px.length){let tk=false;px.forEach(e=>e.classList.add('parallax'));addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(()=>{const y=scrollY;if(y<innerHeight*1.2)px.forEach(e=>e.style.transform=`translate3d(0,${y*.12}px,0)`);tk=false})}},{passive:true})}
+const hv=D.querySelector('.hv');
+if(hv){if(R||navigator.connection&&navigator.connection.saveData){hv.removeAttribute('autoplay');hv.pause()}else{new IntersectionObserver(([e])=>{e.isIntersecting?hv.play().catch(()=>{}):hv.pause()}).observe(hv)}}
+const px=[...D.querySelectorAll('.hero-bg')];
+if(!R&&FINE&&px.length){let tk=false;px.forEach(e=>e.classList.add('parallax'));addEventListener('scroll',()=>{if(!tk){tk=true;requestAnimationFrame(()=>{const y=scrollY;if(y<innerHeight*1.2)px.forEach(e=>e.style.transform=`translate3d(0,${y*.25}px,0)`);tk=false})}},{passive:true})}
 if(!R&&FINE)D.querySelectorAll('.btn').forEach(b=>{b.classList.add('magnetic');b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.22}px,${(e.clientY-r.top-r.height/2)*.3}px)`});b.addEventListener('pointerleave',()=>b.style.transform='')});
 const VT='onpagereveal' in window&&CSS.supports('view-transition-name:a');
 if(!R&&!VT){const cu=D.createElement('div');cu.className='curtain';cu.setAttribute('aria-hidden','true');D.body.appendChild(cu);
